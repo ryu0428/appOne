@@ -1,4 +1,6 @@
 #include"libOne.h"
 void gmain() {
-	window(800, 450);
+	window(450, 450);
+	clear(255,0,0);
+    pause();
 }
