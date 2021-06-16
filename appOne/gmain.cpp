@@ -1,29 +1,55 @@
+#define _SHOOT
+#ifdef _SHOOT
 #include"libOne.h"
-void roundFace(float px, float py) {
-    fill(255, 255, 0);
-    circle(px, py, 300);
-    fill(255);
-    circle(px - 50, py, 80);
-    circle(px + 50, py, 80);
-    fill(0);
-    circle(px - 50, py, 30);
-    circle(px + 50, py, 30);
-    fill(255, 200, 200);
-    circle(px, py + 80, 80);
+void gmain() {
+    window(1920, 1080, full);
+    struct PLAYER {
+        float px, py, w, h, vx;
+    };
+    struct BULLET {
+        float px, py, w, h, vy;
+        int hp = 0;
+    };
+    struct PLAYER p;
+    p.px = width / 2;
+    p.py =  height- 150;
+    p.w = 100;
+    p.h = 200;
+    p.vx = 10;
+    struct BULLET b;
+    b.px = p.px;
+    b.py = p.py;
+    b.w = 20;
+    b.h = 40;
+    b.vy = -10;
+    while (notQuit) {
+        if (isPress(KEY_A)) { p.px += -p.vx; }
+        if (isPress(KEY_D)) { p.px += p.vx; }
+        if (isTrigger(KEY_SPACE)) {
+            if (b.hp == 0) {
+                b.hp = 1;
+                b.px = p.px;
+                b.py = p.py;
+            }
+        }
+        if (b.hp > 0) {
+            b.py += b.vy;
+            if (b.py < -b.h) {
+
+            }
+        }
+        clear();
+        rectMode(CENTER);
+        rect(p.px, p.py, p.w, p.h);
+        if (b.hp > 0) {
+            rect(b.px, b.py, b.w, b.h);
+        }
+    }
 }
-void squareFace(float px, float py,float angle) {
-    rectMode(CENTER),
-    fill(255, 255, 0);
-    rect(px, py, 300,300,angle);
-    fill(255);
-    rect(px - 50, py, 80,80,angle);
-    rect(px + 50, py, 80,80,angle);
-    fill(0);
-    rect(px - 50, py, 30,30, angle);
-    rect(px + 50, py, 30,30, angle);
-    fill(255, 200, 200);
-    rect(px, py + 80, 80,80, angle);
-}
+#endif
+#ifdef _FACE
+#include"libOne.h"
+#include"face.h"
 void gmain() {
     window(1920, 1080, full);
     float px = width / 2;
@@ -45,12 +71,11 @@ void gmain() {
             else {
                 squareFace(px+ofsX*i, py+ofsY*i, angle);
             }
-        }
-        
-        
+        } 
     }
 }
-/*
+#endif
+#ifdef _HPGAUGE
 #include"libOne.h"
 void gmain() {
     window(1920, 1080, full);
@@ -93,8 +118,8 @@ void gmain() {
     
     }
 }
-*/
-/*
+#endif
+#ifdef _LIFE
 #include"libOne.h"
 void gmain() {
     window(1920, 1080, full);
@@ -132,8 +157,8 @@ void gmain() {
 
     }
 }
-*/
-/*
+#endif
+#ifdef _MOVE
 #include"libOne.h"
 void gmain() {
     window(1920, 1080, full);
@@ -161,4 +186,4 @@ void gmain() {
     line(1920 / 2, 0, px, py);
     }
 }
-*/
+#endif
